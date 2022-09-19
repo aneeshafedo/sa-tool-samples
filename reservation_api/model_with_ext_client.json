@@ -1,0 +1,563 @@
+{
+  "aneesha/reservation_api/0.1.0": {
+    "entities": {
+      "aneesha/reservation_api:0.1.0:Flight": {
+        "attributes": [
+          {
+            "name": "flightNumber",
+            "type": "string",
+            "optional": false,
+            "nillable": false,
+            "defaultValue": "",
+            "associations": []
+          },
+          {
+            "name": "flightDate",
+            "type": "string",
+            "optional": false,
+            "nillable": false,
+            "defaultValue": "",
+            "associations": []
+          },
+          {
+            "name": "available",
+            "type": "int",
+            "optional": false,
+            "nillable": false,
+            "defaultValue": "",
+            "associations": []
+          },
+          {
+            "name": "totalCapacity",
+            "type": "int",
+            "optional": false,
+            "nillable": false,
+            "defaultValue": "",
+            "associations": []
+          }
+        ],
+        "inclusions": []
+      },
+      "aneesha/reservation_api.seat_allocation_api:0.1.0:SeatAllocation": {
+        "attributes": [
+          {
+            "name": "flightNumber",
+            "type": "string",
+            "optional": false,
+            "nillable": false,
+            "defaultValue": "",
+            "associations": []
+          },
+          {
+            "name": "flightDate",
+            "type": "string",
+            "optional": false,
+            "nillable": false,
+            "defaultValue": "",
+            "associations": []
+          },
+          {
+            "name": "seats",
+            "type": "int",
+            "optional": false,
+            "nillable": false,
+            "defaultValue": "",
+            "associations": []
+          }
+        ],
+        "inclusions": []
+      },
+      "aneesha/reservation_api:0.1.0:FlightBasicDetails": {
+        "attributes": [
+          {
+            "name": "flight",
+            "type": "aneesha/reservation_api.seat_allocation_api:0.1.0:Flight",
+            "optional": false,
+            "nillable": false,
+            "defaultValue": "",
+            "associations": [
+              {
+                "associate": "aneesha/reservation_api.seat_allocation_api:0.1.0:Flight",
+                "cardinality": { "self": "1-1", "associate": "0-1" }
+              }
+            ]
+          },
+          {
+            "name": "fare",
+            "type": "aneesha/reservation_api.fares_api:0.1.0:Fare?",
+            "optional": false,
+            "nillable": true,
+            "defaultValue": "",
+            "associations": [
+              {
+                "associate": "aneesha/reservation_api.fares_api:0.1.0:Fare",
+                "cardinality": { "self": "1-1", "associate": "0-1" }
+              }
+            ]
+          },
+          {
+            "name": "totalReservations",
+            "type": "aneesha/reservation_api:0.1.0:ConfirmedReservation[]|aneesha/reservation_api:0.1.0:Reservation[]",
+            "optional": false,
+            "nillable": false,
+            "defaultValue": "",
+            "associations": [
+              {
+                "associate": "aneesha/reservation_api:0.1.0:ConfirmedReservation",
+                "cardinality": { "self": "1-1", "associate": "0-m" }
+              },
+              {
+                "associate": "aneesha/reservation_api:0.1.0:Reservation",
+                "cardinality": { "self": "1-1", "associate": "0-m" }
+              }
+            ]
+          },
+          {
+            "name": "seats",
+            "type": "aneesha/reservation_api.seat_allocation_api:0.1.0:SeatAllocation",
+            "optional": true,
+            "nillable": false,
+            "defaultValue": "",
+            "associations": [
+              {
+                "associate": "aneesha/reservation_api.seat_allocation_api:0.1.0:SeatAllocation",
+                "cardinality": { "self": "1-1", "associate": "1-1" }
+              }
+            ]
+          },
+          {
+            "name": "availability",
+            "type": "aneesha/reservation_api:0.1.0:Availability[]",
+            "optional": false,
+            "nillable": false,
+            "defaultValue": "",
+            "associations": [
+              {
+                "associate": "aneesha/reservation_api:0.1.0:Availability",
+                "cardinality": { "self": "1-1", "associate": "0-m" }
+              }
+            ]
+          }
+        ],
+        "inclusions": []
+      },
+      "aneesha/reservation_api:0.1.0:Availability": {
+        "attributes": [
+          {
+            "name": "flightData",
+            "type": "aneesha/reservation_api:0.1.0:FlightBasicDetails",
+            "optional": false,
+            "nillable": false,
+            "defaultValue": "",
+            "associations": [
+              {
+                "associate": "aneesha/reservation_api:0.1.0:FlightBasicDetails",
+                "cardinality": { "self": "0-m", "associate": "0-1" }
+              }
+            ]
+          },
+          {
+            "name": "isAvailable",
+            "type": "boolean",
+            "optional": false,
+            "nillable": false,
+            "defaultValue": "",
+            "associations": []
+          }
+        ],
+        "inclusions": []
+      },
+      "aneesha/reservation_api:0.1.0:USAFlight": {
+        "attributes": [
+          {
+            "name": "county",
+            "type": "string",
+            "optional": false,
+            "nillable": false,
+            "defaultValue": "",
+            "associations": []
+          },
+          {
+            "name": "state",
+            "type": "string",
+            "optional": false,
+            "nillable": false,
+            "defaultValue": "",
+            "associations": []
+          }
+        ],
+        "inclusions": ["aneesha/reservation_api:0.1.0:Flight"]
+      },
+      "aneesha/reservation_api:0.1.0:Reservation": {
+        "attributes": [
+          {
+            "name": "flightNumber",
+            "type": "string",
+            "optional": false,
+            "nillable": false,
+            "defaultValue": "",
+            "associations": []
+          },
+          {
+            "name": "origin",
+            "type": "string",
+            "optional": false,
+            "nillable": false,
+            "defaultValue": "",
+            "associations": []
+          },
+          {
+            "name": "destination",
+            "type": "string",
+            "optional": false,
+            "nillable": false,
+            "defaultValue": "",
+            "associations": []
+          },
+          {
+            "name": "flightDate",
+            "type": "string",
+            "optional": false,
+            "nillable": false,
+            "defaultValue": "",
+            "associations": []
+          },
+          {
+            "name": "seats",
+            "type": "int",
+            "optional": false,
+            "nillable": false,
+            "defaultValue": "",
+            "associations": []
+          }
+        ],
+        "inclusions": []
+      },
+      "aneesha/reservation_api.fares_api:0.1.0:Fare": {
+        "attributes": [
+          {
+            "name": "flightNo",
+            "type": "string",
+            "optional": false,
+            "nillable": false,
+            "defaultValue": "",
+            "associations": []
+          },
+          {
+            "name": "flightDate",
+            "type": "string",
+            "optional": false,
+            "nillable": false,
+            "defaultValue": "",
+            "associations": []
+          },
+          {
+            "name": "rate",
+            "type": "float",
+            "optional": false,
+            "nillable": false,
+            "defaultValue": "",
+            "associations": []
+          }
+        ],
+        "inclusions": []
+      },
+      "aneesha/reservation_api.seat_allocation_api:0.1.0:Flight": {
+        "attributes": [
+          {
+            "name": "flightNumber",
+            "type": "string",
+            "optional": false,
+            "nillable": false,
+            "defaultValue": "",
+            "associations": []
+          },
+          {
+            "name": "flightDate",
+            "type": "string",
+            "optional": false,
+            "nillable": false,
+            "defaultValue": "",
+            "associations": []
+          },
+          {
+            "name": "available",
+            "type": "int",
+            "optional": false,
+            "nillable": false,
+            "defaultValue": "",
+            "associations": []
+          },
+          {
+            "name": "totalCapacity",
+            "type": "int",
+            "optional": false,
+            "nillable": false,
+            "defaultValue": "",
+            "associations": []
+          }
+        ],
+        "inclusions": []
+      },
+      "aneesha/reservation_api:0.1.0:ConfirmedReservation": {
+        "attributes": [
+          {
+            "name": "id",
+            "type": "int",
+            "optional": false,
+            "nillable": false,
+            "defaultValue": "",
+            "associations": []
+          },
+          {
+            "name": "flightNumber",
+            "type": "string",
+            "optional": false,
+            "nillable": false,
+            "defaultValue": "",
+            "associations": []
+          },
+          {
+            "name": "origin",
+            "type": "string",
+            "optional": false,
+            "nillable": false,
+            "defaultValue": "",
+            "associations": []
+          },
+          {
+            "name": "destination",
+            "type": "string",
+            "optional": false,
+            "nillable": false,
+            "defaultValue": "",
+            "associations": []
+          },
+          {
+            "name": "flightDate",
+            "type": "string",
+            "optional": false,
+            "nillable": false,
+            "defaultValue": "",
+            "associations": []
+          },
+          {
+            "name": "bookingDate",
+            "type": "string",
+            "optional": false,
+            "nillable": false,
+            "defaultValue": "",
+            "associations": []
+          },
+          {
+            "name": "fare",
+            "type": "float",
+            "optional": false,
+            "nillable": false,
+            "defaultValue": "",
+            "associations": []
+          },
+          {
+            "name": "seats",
+            "type": "int",
+            "optional": false,
+            "nillable": false,
+            "defaultValue": "",
+            "associations": []
+          },
+          {
+            "name": "status",
+            "type": "aneesha/reservation_api:0.1.0:BookingStatus",
+            "optional": false,
+            "nillable": false,
+            "defaultValue": "",
+            "associations": [
+              {
+                "associate": "aneesha/reservation_api:0.1.0:BookingStatus",
+                "cardinality": { "self": "1-1", "associate": "0-1" }
+              }
+            ]
+          }
+        ],
+        "inclusions": []
+      }
+    },
+    "services": {
+      "003": {
+        "path": "fares",
+        "serviceId": "003",
+        "serviceType": "http",
+        "resources": [
+          {
+            "resourceId": {
+              "serviceId": "003",
+              "path": "fare",
+              "action": "post"
+            },
+            "parameters": [
+              {
+                "type": ["aneesha/reservation_api.fares_api:0.1.0:Fare"],
+                "name": "fare",
+                "in": "body",
+                "isRequired": true
+              }
+            ],
+            "returns": [
+              "aneesha/reservation_api.fares_api:0.1.0:Fare",
+              "error",
+              "null"
+            ],
+            "interactions": []
+          },
+          {
+            "resourceId": {
+              "serviceId": "003",
+              "path": "fare/[string flightNumber]/[string flightDate]",
+              "action": "get"
+            },
+            "parameters": [],
+            "returns": [
+              "aneesha/reservation_api.fares_api:0.1.0:Fare",
+              "error"
+            ],
+            "interactions": []
+          }
+        ]
+      },
+      "002": {
+        "path": "allocation",
+        "serviceId": "002",
+        "serviceType": "http",
+        "resources": [
+          {
+            "resourceId": {
+              "serviceId": "002",
+              "path": "flights/[string flightNumber]",
+              "action": "get"
+            },
+            "parameters": [
+              {
+                "type": ["string", "null"],
+                "name": "flightDate",
+                "in": "query",
+                "isRequired": true
+              }
+            ],
+            "returns": [
+              "aneesha/reservation_api.seat_allocation_api:0.1.0:Flight[]"
+            ],
+            "interactions": []
+          },
+          {
+            "resourceId": {
+              "serviceId": "002",
+              "path": "flights",
+              "action": "post"
+            },
+            "parameters": [
+              {
+                "type": [
+                  "aneesha/reservation_api.seat_allocation_api:0.1.0:SeatAllocation"
+                ],
+                "name": "payload",
+                "in": "body",
+                "isRequired": true
+              }
+            ],
+            "returns": [
+              "aneesha/reservation_api.seat_allocation_api:0.1.0:SeatAllocation",
+              "error"
+            ],
+            "interactions": []
+          }
+        ]
+      },
+      "001": {
+        "path": "reservations",
+        "serviceId": "001",
+        "serviceType": "http",
+        "resources": [
+          {
+            "resourceId": {
+              "serviceId": "001",
+              "path": "reservation",
+              "action": "post"
+            },
+            "parameters": [
+              {
+                "type": ["aneesha/reservation_api:0.1.0:Reservation"],
+                "name": "payload",
+                "in": "body",
+                "isRequired": true
+              }
+            ],
+            "returns": [
+              "error",
+              "aneesha/reservation_api:0.1.0:ConfirmedReservation"
+            ],
+            "interactions": [
+              {
+                "serviceId": "002",
+                "path": "flights/[string]",
+                "action": "get",
+                "connectorType": "http"
+              },
+              {
+                "serviceId": "002",
+                "path": "flights",
+                "action": "post",
+                "connectorType": "http"
+              },
+              {
+                "serviceId": "003",
+                "path": "fares/[string]/[string]",
+                "action": "get",
+                "connectorType": "http"
+              }
+            ]
+          },
+          {
+            "resourceId": {
+              "serviceId": "001",
+              "path": "reservation/[int reservationId]",
+              "action": "get"
+            },
+            "parameters": [
+              {
+                "type": ["string"],
+                "name": "name",
+                "in": "query",
+                "isRequired": true
+              }
+            ],
+            "returns": [
+              "aneesha/reservation_api:0.1.0:ConfirmedReservation",
+              "error",
+              "null"
+            ],
+            "interactions": []
+          },
+          {
+            "resourceId": {
+              "serviceId": "001",
+              "path": "weather/[string country]",
+              "action": "get"
+            },
+            "parameters": [],
+            "returns": [
+              "error",
+              "ballerinax/openweathermap:1.2.0:CurrentWeatherData"
+            ],
+            "interactions": [
+              {
+                "serviceId": "101",
+                "action": "getCurretWeatherData",
+                "connectorType": "openweathermap"
+              }
+            ]
+          }
+        ]
+      }
+    }
+  }
+}
