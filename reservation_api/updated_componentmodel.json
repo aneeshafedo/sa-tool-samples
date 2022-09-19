@@ -163,8 +163,17 @@
             "action": "get"
           },
           "parameters": [],
-          "returns": [],
-          "interactions": []
+          "returns": [
+            "error",
+            "ballerinax/openweathermap:1.2.0:CurrentWeatherData"
+          ],
+          "interactions": [
+            {
+              "serviceId": "101",
+              "action": "getCurretWeatherData",
+              "connectorType": "openweathermap"
+            }
+          ]
         }
       ]
     }
