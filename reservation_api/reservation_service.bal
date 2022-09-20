@@ -49,7 +49,7 @@ service /reservations on new http:Listener(9090) {
             }
             http:Client fare_client = check new (seatFareAPIUrl);
             // fares:Fare fare = check fare_client->get(string `fares/${payload.flightNumber}/${payload.flightDate}`);
-            fares:Fare fare = check fare_client->/fares/[flightNumber]/[flightDate].get; 
+            fares:Fare fare = check fare_client->/fare/[flightNumber]/[flightDate].get; 
             float totalFare = fare.rate * payload.seats;
 
             log:printInfo("Seat Allocation Details : " + allocation.toString() + "\n\n" + " Total Fare : " + totalFare.toString());

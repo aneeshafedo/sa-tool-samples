@@ -6,59 +6,12 @@
   },
   "services": [
     {
-      "path": "allocation",
-      "serviceId": "002",
-      "serviceType": "http",
-      "resources": [
-        {
-          "resourceId": {
-            "serviceId": "002",
-            "path": "flights/[string flightNumber]",
-            "action": "get"
-          },
-          "parameters": [
-            {
-              "type": ["string", "null"],
-              "name": "flightDate",
-              "in": "query",
-              "isRequired": true
-            }
-          ],
-          "returns": [
-            "aneesha/reservation_api.seat_allocation_api:0.1.0:Flight[]"
-          ],
-          "interactions": []
-        },
-        {
-          "resourceId": {
-            "serviceId": "002",
-            "path": "flights",
-            "action": "post"
-          },
-          "parameters": [
-            {
-              "type": [
-                "aneesha/reservation_api.seat_allocation_api:0.1.0:SeatAllocation"
-              ],
-              "name": "payload",
-              "in": "body",
-              "isRequired": true
-            }
-          ],
-          "returns": [
-            "aneesha/reservation_api.seat_allocation_api:0.1.0:SeatAllocation",
-            "error"
-          ],
-          "interactions": []
-        }
-      ]
-    },
-    {
       "path": "fares",
       "serviceId": "003",
       "serviceType": "http",
       "resources": [
         {
+          "identifier": "fare",
           "resourceId": {
             "serviceId": "003",
             "path": "fare",
@@ -80,6 +33,7 @@
           "interactions": []
         },
         {
+          "identifier": "fare/[string]/[string]",
           "resourceId": {
             "serviceId": "003",
             "path": "fare/[string flightNumber]/[string flightDate]",
@@ -97,6 +51,7 @@
       "serviceType": "http",
       "resources": [
         {
+          "identifier": "reservation",
           "resourceId": {
             "serviceId": "001",
             "path": "reservation",
@@ -116,26 +71,33 @@
           ],
           "interactions": [
             {
-              "serviceId": "002",
-              "path": "flights/[string]",
-              "action": "get",
+              "resourceId": {
+                "serviceId": "002",
+                "path": "flights/[string]",
+                "action": "get"
+              },
               "connectorType": "http"
             },
             {
-              "serviceId": "002",
-              "path": "flights",
-              "action": "post",
+              "resourceId": {
+                "serviceId": "002",
+                "path": "flights",
+                "action": "post"
+              },
               "connectorType": "http"
             },
             {
-              "serviceId": "003",
-              "path": "fares/[string]/[string]",
-              "action": "get",
+              "resourceId": {
+                "serviceId": "003",
+                "path": "fare/[string]/[string]",
+                "action": "get"
+              },
               "connectorType": "http"
             }
           ]
         },
         {
+          "identifier": "reservation/[int]",
           "resourceId": {
             "serviceId": "001",
             "path": "reservation/[int reservationId]",
@@ -157,23 +119,65 @@
           "interactions": []
         },
         {
+          "identifier": "weather/[string]",
           "resourceId": {
             "serviceId": "001",
             "path": "weather/[string country]",
             "action": "get"
           },
           "parameters": [],
-          "returns": [
-            "error",
-            "ballerinax/openweathermap:1.2.0:CurrentWeatherData"
-          ],
-          "interactions": [
+          "returns": [],
+          "interactions": []
+        }
+      ]
+    },
+    {
+      "path": "allocation",
+      "serviceId": "002",
+      "serviceType": "http",
+      "resources": [
+        {
+          "identifier": "flights/[string]",
+          "resourceId": {
+            "serviceId": "002",
+            "path": "flights/[string flightNumber]",
+            "action": "get"
+          },
+          "parameters": [
             {
-              "serviceId": "101",
-              "action": "getCurretWeatherData",
-              "connectorType": "openweathermap"
+              "type": ["string", "null"],
+              "name": "flightDate",
+              "in": "query",
+              "isRequired": true
             }
-          ]
+          ],
+          "returns": [
+            "aneesha/reservation_api.seat_allocation_api:0.1.0:Flight[]"
+          ],
+          "interactions": []
+        },
+        {
+          "identifier": "flights",
+          "resourceId": {
+            "serviceId": "002",
+            "path": "flights",
+            "action": "post"
+          },
+          "parameters": [
+            {
+              "type": [
+                "aneesha/reservation_api.seat_allocation_api:0.1.0:SeatAllocation"
+              ],
+              "name": "payload",
+              "in": "body",
+              "isRequired": true
+            }
+          ],
+          "returns": [
+            "aneesha/reservation_api.seat_allocation_api:0.1.0:SeatAllocation",
+            "error"
+          ],
+          "interactions": []
         }
       ]
     }
